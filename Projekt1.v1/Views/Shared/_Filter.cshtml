@@ -1,0 +1,50 @@
+﻿@Scripts.Render("~/scripts/FilterIndex.js")
+<h2>Car Filter</h2>
+<div>
+    <div id="filtermenu" class="form-inline form-group">
+        <input value="Order" type="button" id="Order" class="form-control" />  
+        <input type="text" id="Model" class="form-control" />
+
+        @(Html.Kendo().DropDownList()
+          .Name("BodyType")
+          
+          .DataTextField("Name")
+          .DataValueField("BodyTypeId")
+          .HtmlAttributes(new { style = "width:250px" })
+          .Filter("contains")
+          .DataSource(source =>
+          {
+              source.Read(read =>
+              {
+                  read.Action("GetCarBodyTypes", "Filter");
+                  
+
+              });
+
+          }).SelectedIndex(0)
+          .OptionLabel("Select").Value("0")
+        )
+            <label for="start">Start date:</label>
+
+            @(Html.Kendo().DatePicker()
+      .Name("start")
+
+      .Events(e => e.Change("startChange"))
+            )
+
+            <label for="end" style="margin-left:3em">End date:</label>
+            @(Html.Kendo().DatePicker()
+      .Name("end")
+      .Events(e => e.Change("endChange"))
+            )
+
+       <input type="button" id="Filter" value="Filter" class="form-control" /> 
+        <input value="Reset" type="button" id="Reset" class="form-control" />  
+    </div>
+ 
+</div>
+
+
+
+
+

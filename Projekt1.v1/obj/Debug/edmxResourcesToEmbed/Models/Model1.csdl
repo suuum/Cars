@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RentACarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Borrow">
+    <Key>
+      <PropertyRef Name="BorrowId" />
+    </Key>
+    <Property Name="BorrowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CarId" Type="Int32" Nullable="false" />
+    <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ToDate" Type="DateTime" Precision="3" />
+    <Property Name="IsReturned" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Car" Relationship="Self.FK_Borrow_Car" FromRole="Borrow" ToRole="Car" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Borrow_User" FromRole="Borrow" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Car">
+    <Key>
+      <PropertyRef Name="CarId" />
+    </Key>
+    <Property Name="CarId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mileage" Type="Decimal" Precision="10" Scale="1" Nullable="false" />
+    <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="BodyTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="AddDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Borrow" Relationship="Self.FK_Borrow_Car" FromRole="Car" ToRole="Borrow" />
+    <NavigationProperty Name="CarBodyType" Relationship="Self.FK_Car_CarBodyType" FromRole="Car" ToRole="CarBodyType" />
+  </EntityType>
+  <EntityType Name="CarBodyType">
+    <Key>
+      <PropertyRef Name="BodyTypeId" />
+    </Key>
+    <Property Name="BodyTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Car" Relationship="Self.FK_Car_CarBodyType" FromRole="CarBodyType" ToRole="Car" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirhtDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AddDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Borrow" Relationship="Self.FK_Borrow_User" FromRole="User" ToRole="Borrow" />
+  </EntityType>
+  <Association Name="FK_Borrow_Car">
+    <End Role="Car" Type="Self.Car" Multiplicity="1" />
+    <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Car">
+        <PropertyRef Name="CarId" />
+      </Principal>
+      <Dependent Role="Borrow">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Borrow_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Borrow">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Car_CarBodyType">
+    <End Role="CarBodyType" Type="Self.CarBodyType" Multiplicity="1" />
+    <End Role="Car" Type="Self.Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarBodyType">
+        <PropertyRef Name="BodyTypeId" />
+      </Principal>
+      <Dependent Role="Car">
+        <PropertyRef Name="BodyTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RentACarEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Borrow" EntityType="Self.Borrow" />
+    <EntitySet Name="Car" EntityType="Self.Car" />
+    <EntitySet Name="CarBodyType" EntityType="Self.CarBodyType" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_Borrow_Car" Association="Self.FK_Borrow_Car">
+      <End Role="Car" EntitySet="Car" />
+      <End Role="Borrow" EntitySet="Borrow" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Borrow_User" Association="Self.FK_Borrow_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Borrow" EntitySet="Borrow" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Car_CarBodyType" Association="Self.FK_Car_CarBodyType">
+      <End Role="CarBodyType" EntitySet="CarBodyType" />
+      <End Role="Car" EntitySet="Car" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,30 @@
+﻿
+    .demo-section {
+        width: 250px;
+        margin: 35px auto 50px;
+        padding: 30px;
+    }
+     #example .k-datepicker {
+        vertical-align: middle;
+    }
+
+    #example h3 {
+        clear: both;
+    }
+
+    #example .code-sample {
+        width: 60%;
+        float:left;
+        margin-bottom: 20px;
+    }
+
+    #example .output {
+        width: 24%;
+        margin-left: 4%;
+        float:left;
+    }
+    #filtermenu li{
+        list-style-type:none;
+        display:inline;
+    }
+

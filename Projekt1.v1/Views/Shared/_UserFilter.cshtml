@@ -1,0 +1,35 @@
+﻿@model Projekt1.v1.Models.User
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/kendo/css")
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/<2013.2.918>/styles/kendo.common-bootstrap.min.css" />
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/<2013.2.918>/styles/kendo.bootstrap.min.css" />
+
+
+
+@(Html.Kendo().Grid<Projekt1.v1.Models.UserBorrow>()
+          .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.FirstName).Filterable(false).Sortable(false);
+          columns.Bound(c => c.LastName).Filterable(ftb => ftb.Cell(cell => cell.Operator("startswith"))).Sortable(false);
+          columns.Bound(c => c.BirhtDate).Filterable(false).Sortable(false);
+          columns.Bound(c => c.Email).Filterable(false).Sortable(false);
+          columns.Bound(c => c.Phone).Filterable(false).Sortable(false);
+          columns.Bound(c => c.AddDate).Filterable(false).Sortable(false);
+          columns.Bound(c => c.Count).Filterable(false);
+          
+      })
+      
+      .Scrollable()
+         .Pageable(pageable => pageable
+                .Refresh(true)
+                .PageSizes(true)
+                .ButtonCount(3))
+     .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+     .Sortable(ftb=>ftb.SortMode(GridSortMode.SingleColumn))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+              .Read(read => read.Action("User_Read", "Filter"))
+          )
+)
+

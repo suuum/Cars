@@ -1,0 +1,115 @@
+﻿
+@(Html.Kendo().Grid<Projekt1.v1.Models.Car>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.CarId);
+        columns.Bound(p => p.Brand);
+        columns.Bound(p => p.Model);
+        columns.ForeignKey(p => p.BodyTypeId, (System.Collections.IEnumerable)ViewData["cars"], "BodyTypeId", "Name").Title("Body type");
+        columns.Bound(p => p.ReleaseDate);
+        columns.Bound(p => p.Mileage);
+        columns.Bound(p => p.Count);
+        columns.Bound(p => p.AddDate);
+        columns.Bound(p => p.ModifiedDate);
+        
+        columns.Command(command => command.Custom("Edit").Click("editItem")).Width(50);
+        columns.Command(command => command.Custom("Details").Click("DetailsItem")).Width(50);
+    })
+
+          .ToolBar(command => command.Template("<a class='k-button k-button-icontext' onclick='CreateItem(this)'><span>Create</span></a>"))
+ 
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("Car_Read", "Cars"))
+        .Model(model => model.Id(p => p.CarId))
+        )
+)
+
+@(Html.Kendo().Window().Name("Edit")
+    .Title("Edit Car")
+    .Visible(false)
+    .Modal(true)
+    .Draggable(true)
+    .Iframe(true)
+    .Width(400)
+    .Height(700).Scrollable(false)
+    
+)
+
+@(Html.Kendo().Window().Name("Create")
+    .Title("Create Car")
+    .Visible(false)
+    .Modal(true).Iframe(true)
+    .Draggable(true)
+    .Scrollable(false).Width(400)
+    .Height(700)
+
+)
+@(Html.Kendo().Window().Name("Details")
+    .Title("Create Car")
+    .Visible(false)
+    .Modal(true)
+    .Draggable(true)
+    .Scrollable(false).Width(400)
+    .Height(700)
+
+)
+
+<script type="text/javascript">
+
+    var windowObject;
+    var windowObject2;
+    var windowObject3;
+    $(document).ready(function () {
+        windowObject = $("#Edit").data("kendoWindow");
+        windowObject2 = $("#Create").data("kendoWindow");
+        windowObject3 = $("#Details").data("kendoWindow");
+
+
+    });
+
+
+
+
+
+    function editItem(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        console.log(dataItem.CarId);
+        windowObject.refresh({
+            url: "/Cars/Edit/" + dataItem.CarId
+
+
+        });
+
+
+        windowObject.open();
+        windowObject.center();
+
+
+    }
+
+    function CreateItem(e) {
+
+        windowObject2.refresh({
+            url: "/Cars/Create"
+
+        });
+        windowObject2.open();
+        windowObject2.center();
+    }
+    function DetailsItem(e) {
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+        windowObject3.refresh({
+            url: "/Cars/Details/" + dataItem.CarId
+
+        });
+        windowObject3.open();
+        windowObject3.center();
+    }
+
+</script>

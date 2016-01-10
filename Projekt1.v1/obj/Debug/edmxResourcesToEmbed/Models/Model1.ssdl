@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RentACarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Borrow">
+    <Key>
+      <PropertyRef Name="BorrowId" />
+    </Key>
+    <Property Name="BorrowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="CarId" Type="int" Nullable="false" />
+    <Property Name="FromDate" Type="datetime" Nullable="false" />
+    <Property Name="ToDate" Type="datetime" />
+    <Property Name="IsReturned" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Car">
+    <Key>
+      <PropertyRef Name="CarId" />
+    </Key>
+    <Property Name="CarId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Brand" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Mileage" Type="numeric" Precision="10" Scale="1" Nullable="false" />
+    <Property Name="ReleaseDate" Type="datetime" Nullable="false" />
+    <Property Name="BodyTypeId" Type="int" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="false" />
+    <Property Name="AddDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="CarBodyType">
+    <Key>
+      <PropertyRef Name="BodyTypeId" />
+    </Key>
+    <Property Name="BodyTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BirhtDate" Type="datetime" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="AddDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Borrow_Car">
+    <End Role="Car" Type="Self.Car" Multiplicity="1" />
+    <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Car">
+        <PropertyRef Name="CarId" />
+      </Principal>
+      <Dependent Role="Borrow">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Borrow_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Borrow">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Car_CarBodyType">
+    <End Role="CarBodyType" Type="Self.CarBodyType" Multiplicity="1" />
+    <End Role="Car" Type="Self.Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarBodyType">
+        <PropertyRef Name="BodyTypeId" />
+      </Principal>
+      <Dependent Role="Car">
+        <PropertyRef Name="BodyTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RentACarModelStoreContainer">
+    <EntitySet Name="Borrow" EntityType="Self.Borrow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarBodyType" EntityType="Self.CarBodyType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Borrow_Car" Association="Self.FK_Borrow_Car">
+      <End Role="Car" EntitySet="Car" />
+      <End Role="Borrow" EntitySet="Borrow" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Borrow_User" Association="Self.FK_Borrow_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Borrow" EntitySet="Borrow" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Car_CarBodyType" Association="Self.FK_Car_CarBodyType">
+      <End Role="CarBodyType" EntitySet="CarBodyType" />
+      <End Role="Car" EntitySet="Car" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

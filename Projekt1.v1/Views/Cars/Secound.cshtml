@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Secound";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Secound</h2>
+
+
+
+<script type="text/javascript">
+
+    var windowObject;
+    var windowObject2;
+
+    $(document).ready(function () {
+
+        var win = window.parent.$("#Edit").data("kendoWindow");
+        win.close();
+
+    });
+
+
+</script>
