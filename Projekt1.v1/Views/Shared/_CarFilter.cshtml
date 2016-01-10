@@ -1,0 +1,26 @@
+﻿@(Html.Kendo().Grid<Projekt1.v1.Models.CarBorrow>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.CarId);
+        columns.Bound(p => p.Brand);
+        columns.Bound(p => p.Model);
+        columns.ForeignKey(p => p.BodyTypeId, (System.Collections.IEnumerable)ViewData["cars"], "BodyTypeId", "Name").Title("Body type");
+        columns.Bound(p => p.ReleaseDate);
+        columns.Bound(p => p.Count);
+        columns.Bound(p => p.AddDate);
+        columns.Bound(p => p.ModifiedDate);
+        columns.Bound(p => p.BorrowCount);
+    })
+                 .Pageable(pageable => pageable
+                    .Refresh(true)
+                    .PageSizes(true)
+                    .ButtonCount(3))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("Car_Read", "Filter"))
+        .Model(model => model.Id(p => p.CarId))
+        )
+)
+
+

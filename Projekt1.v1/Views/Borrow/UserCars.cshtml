@@ -1,0 +1,32 @@
+﻿@Scripts.Render("~/scripts/borrowUserCar.js")
+@{
+    ViewBag.Title = "UserCars";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UserCars</h2>
+
+
+
+@(Html.Kendo().Grid<Projekt1.v1.Models.Borrow>()
+                  .Name("Grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.BorrowId);
+          columns.Bound(c => c.CarId);
+          columns.Bound(c => c.FromDate);
+          columns.Bound(c => c.ToDate);
+          columns.Bound(c => c.IsReturned);
+          columns.Template(@<text></text>).ClientTemplate("<input type='checkbox'  class='chkbx' />");
+
+      }).Pageable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+              .Read(read => read.Action("BorrowUser_Read", "Borrow", new { id = ViewBag.id })
+              )
+       )
+)
+<div id="check"></div>
+<input type="submit" id="show" value="Return" class="form-control" />
+@ViewBag.list

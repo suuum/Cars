@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content" style="display:none">
+    <div>
+        @{Html.RenderAction("UsersFilter"); }
+
+    </div>
+
+    <div>
+        @{
+            Html.RenderPartial("_Filter");
+        }
+        @{
+            Html.RenderAction("CarFilter");
+
+        }
+
+
+
+
+    </div>
+</div>
+<script>
+    $(window).load(function () {
+
+        $("#content").fadeIn(2000);
+
+       
+
+    });
+
+
+</script>

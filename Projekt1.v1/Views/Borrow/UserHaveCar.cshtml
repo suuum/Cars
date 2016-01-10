@@ -1,0 +1,32 @@
+﻿@Scripts.Render("~/scripts/borrowUserHaveCar.js")
+
+@{
+    ViewBag.Title = "UserHaveCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UserHaveCar</h2>
+
+@(Html.Kendo().Grid<Projekt1.v1.Models.User>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.UserId);
+          columns.Bound(c => c.FirstName);
+          columns.Bound(c => c.LastName);
+          columns.Bound(c => c.BirhtDate);
+          columns.Bound(c => c.Email);
+          columns.Bound(c => c.Phone);
+          columns.Bound(c => c.AddDate);
+          columns.Bound(c => c.ModifiedDate);
+          columns.Bound(c => c.IsActive);
+      })
+          .Scrollable().Selectable(selectable => selectable
+                .Enabled(true))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+              .Read(read => read.Action("User_Read", "Borrow"))
+          ).Events(events => events.Change("onChange"))
+)
+
+

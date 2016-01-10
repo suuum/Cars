@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Projekt1.v1.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table border="1">
+    <tr><th>User Name</th>
+        <th>Birth Date</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Add Date</th>
+        <th>Modified Date</th>
+        <th>Books Borrowed</th>
+        <th>Is active</th>
+        <th>&nbsp;</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(mitem =>item.FirstName)
+            @Html.DisplayFor(mitem => item.LastName)
+        </td>
+
+    <td>
+        @Html.DisplayFor(mitem =>item.BirhtDate)
+       
+    </td>
+        <td>
+          @Html.DisplayFor(mitem =>  item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(mitem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(mitem => item.AddDate)
+        </td>
+        <td>
+            @Html.DisplayFor(mitem => item.ModifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(mitem => item.Borrow.Count)
+        </td>
+        <td>
+            @Html.DisplayFor(mitem => item.IsActive)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserId })
+            @if (item.IsActive == true) { 
+            if(item.Borrow.Count==0){
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { onclick = "return confirm('Do you want to delete this user? ');" })
+            }
+            else
+            {
+                <text>You can't Delete</text>
+            }
+            }
+            else
+            {
+                <text>Deleted</text>
+            }
+                </td>
+    </tr>
+}
+
+</table>
+@Html.ActionLink("Add User","Create")
