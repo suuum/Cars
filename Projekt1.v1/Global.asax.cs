@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projekt1.v1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +13,9 @@ namespace Projekt1.v1
     {
         protected void Application_Start()
         {
+          
             AreaRegistration.RegisterAllAreas();
+            DependencyResolver.SetResolver(new NinjectDependencyResolver());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

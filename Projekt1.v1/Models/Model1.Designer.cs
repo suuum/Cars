@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\fum19_000\OneDrive\New folder (4)\MVC\Projekt1.v1\Projekt1.v1\Models\Model1.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\fum19_000\Desktop\Projekt\Projekt1.v1\Projekt1.v1\Models\Model1.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
