@@ -12,7 +12,7 @@ namespace Projekt1.v1.Models
     public partial class User
     {
     }
-        public class UserMetadata
+        public class UserMetadata:IUser
         {
 
 
@@ -45,6 +45,16 @@ namespace Projekt1.v1.Models
             public bool IsActive { get; set; }
 
 
+
+            public List<Car> CarPriceLimit()
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<Car> ProductionDateLimit()
+            {
+                throw new NotImplementedException();
+            }
         }
 
 
@@ -85,6 +95,10 @@ namespace Projekt1.v1.Models
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
             public virtual ICollection<Borrow> Borrow { get; set; }
             public virtual CarBodyType CarBodyType { get; set; }
+
+           
+
+           
         }
 
 

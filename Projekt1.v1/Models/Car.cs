@@ -11,7 +11,6 @@ namespace Projekt1.v1.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Car
     {
@@ -24,13 +23,13 @@ namespace Projekt1.v1.Models
         public int CarId { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
-
         public decimal Mileage { get; set; }
         public System.DateTime ReleaseDate { get; set; }
         public int BodyTypeId { get; set; }
         public int Count { get; set; }
         public System.DateTime AddDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<decimal> Price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Borrow> Borrow { get; set; }

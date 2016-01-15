@@ -29,5 +29,6 @@ namespace Projekt1.v1.Models
         public virtual DbSet<Car> Car { get; set; }
         public virtual DbSet<CarBodyType> CarBodyType { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

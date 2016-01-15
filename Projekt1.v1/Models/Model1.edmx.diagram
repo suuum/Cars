@@ -12,6 +12,7 @@
         <AssociationConnector Association="RentACarModel.FK_Borrow_Car" ManuallyRouted="false" />
         <AssociationConnector Association="RentACarModel.FK_Borrow_User" ManuallyRouted="false" />
         <AssociationConnector Association="RentACarModel.FK_Car_CarBodyType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RentACarModel.sysdiagrams" Width="1.5" PointX="5.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -28,6 +28,7 @@
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Borrow" Relationship="Self.FK_Borrow_Car" FromRole="Car" ToRole="Borrow" />
     <NavigationProperty Name="CarBodyType" Relationship="Self.FK_Car_CarBodyType" FromRole="Car" ToRole="CarBodyType" />
+    <Property Name="Price" Type="Decimal" Precision="5" Scale="2" />
   </EntityType>
   <EntityType Name="CarBodyType">
     <Key>
@@ -105,5 +106,16 @@
       <End Role="CarBodyType" EntitySet="CarBodyType" />
       <End Role="Car" EntitySet="Car" />
     </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="RentACarModel.sysdiagrams" />
   </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
 </Schema>
